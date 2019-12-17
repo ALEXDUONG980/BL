@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLySinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChuyenNganh">
+          <Key>
+            <PropertyRef Name="MaChuyenNganh" />
+          </Key>
+          <Property Name="MaChuyenNganh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenChuyenNganh" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DangKyMonHoc">
+          <Key>
+            <PropertyRef Name="MaDK" />
+          </Key>
+          <Property Name="MaDK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaMH" Type="int" />
+          <Property Name="MaSV" Type="varchar" MaxLength="10" />
+          <Property Name="ThoiGianDangKy" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MonHoc">
+          <Key>
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaMH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenMH" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaChuyenNganh" Type="int" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="MaSV" />
+          </Key>
+          <Property Name="MaSV" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioiTinh" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_DangKyMonHoc_MonHoc">
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+          <End Role="DangKyMonHoc" Type="Self.DangKyMonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="DangKyMonHoc">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DangKyMonHoc_SinhVien">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+          <End Role="DangKyMonHoc" Type="Self.DangKyMonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="MaSV" />
+            </Principal>
+            <Dependent Role="DangKyMonHoc">
+              <PropertyRef Name="MaSV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonHoc_ChuyenNganh">
+          <End Role="ChuyenNganh" Type="Self.ChuyenNganh" Multiplicity="0..1" />
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChuyenNganh">
+              <PropertyRef Name="MaChuyenNganh" />
+            </Principal>
+            <Dependent Role="MonHoc">
+              <PropertyRef Name="MaChuyenNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLySinhVienModelStoreContainer">
+          <EntitySet Name="ChuyenNganh" EntityType="Self.ChuyenNganh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DangKyMonHoc" EntityType="Self.DangKyMonHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DangKyMonHoc_MonHoc" Association="Self.FK_DangKyMonHoc_MonHoc">
+            <End Role="MonHoc" EntitySet="MonHoc" />
+            <End Role="DangKyMonHoc" EntitySet="DangKyMonHoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DangKyMonHoc_SinhVien" Association="Self.FK_DangKyMonHoc_SinhVien">
+            <End Role="SinhVien" EntitySet="SinhVien" />
+            <End Role="DangKyMonHoc" EntitySet="DangKyMonHoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonHoc_ChuyenNganh" Association="Self.FK_MonHoc_ChuyenNganh">
+            <End Role="ChuyenNganh" EntitySet="ChuyenNganh" />
+            <End Role="MonHoc" EntitySet="MonHoc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLySinhVienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChuyenNganh">
+          <Key>
+            <PropertyRef Name="MaChuyenNganh" />
+          </Key>
+          <Property Name="MaChuyenNganh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenChuyenNganh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MonHocs" Relationship="Self.FK_MonHoc_ChuyenNganh" FromRole="ChuyenNganh" ToRole="MonHoc" />
+        </EntityType>
+        <EntityType Name="DangKyMonHoc">
+          <Key>
+            <PropertyRef Name="MaDK" />
+          </Key>
+          <Property Name="MaDK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaMH" Type="Int32" />
+          <Property Name="MaSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ThoiGianDangKy" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MonHoc" Relationship="Self.FK_DangKyMonHoc_MonHoc" FromRole="DangKyMonHoc" ToRole="MonHoc" />
+          <NavigationProperty Name="SinhVien" Relationship="Self.FK_DangKyMonHoc_SinhVien" FromRole="DangKyMonHoc" ToRole="SinhVien" />
+        </EntityType>
+        <EntityType Name="MonHoc">
+          <Key>
+            <PropertyRef Name="MaMH" />
+          </Key>
+          <Property Name="MaMH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenMH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaChuyenNganh" Type="Int32" />
+          <NavigationProperty Name="ChuyenNganh" Relationship="Self.FK_MonHoc_ChuyenNganh" FromRole="MonHoc" ToRole="ChuyenNganh" />
+          <NavigationProperty Name="DangKyMonHocs" Relationship="Self.FK_DangKyMonHoc_MonHoc" FromRole="MonHoc" ToRole="DangKyMonHoc" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="MaSV" />
+          </Key>
+          <Property Name="MaSV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <NavigationProperty Name="DangKyMonHocs" Relationship="Self.FK_DangKyMonHoc_SinhVien" FromRole="SinhVien" ToRole="DangKyMonHoc" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_MonHoc_ChuyenNganh">
+          <End Role="ChuyenNganh" Type="Self.ChuyenNganh" Multiplicity="0..1" />
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChuyenNganh">
+              <PropertyRef Name="MaChuyenNganh" />
+            </Principal>
+            <Dependent Role="MonHoc">
+              <PropertyRef Name="MaChuyenNganh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DangKyMonHoc_MonHoc">
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="0..1" />
+          <End Role="DangKyMonHoc" Type="Self.DangKyMonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MaMH" />
+            </Principal>
+            <Dependent Role="DangKyMonHoc">
+              <PropertyRef Name="MaMH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DangKyMonHoc_SinhVien">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="0..1" />
+          <End Role="DangKyMonHoc" Type="Self.DangKyMonHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="MaSV" />
+            </Principal>
+            <Dependent Role="DangKyMonHoc">
+              <PropertyRef Name="MaSV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLySinhVienEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChuyenNganhs" EntityType="Self.ChuyenNganh" />
+          <EntitySet Name="DangKyMonHocs" EntityType="Self.DangKyMonHoc" />
+          <EntitySet Name="MonHocs" EntityType="Self.MonHoc" />
+          <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_MonHoc_ChuyenNganh" Association="Self.FK_MonHoc_ChuyenNganh">
+            <End Role="ChuyenNganh" EntitySet="ChuyenNganhs" />
+            <End Role="MonHoc" EntitySet="MonHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DangKyMonHoc_MonHoc" Association="Self.FK_DangKyMonHoc_MonHoc">
+            <End Role="MonHoc" EntitySet="MonHocs" />
+            <End Role="DangKyMonHoc" EntitySet="DangKyMonHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DangKyMonHoc_SinhVien" Association="Self.FK_DangKyMonHoc_SinhVien">
+            <End Role="SinhVien" EntitySet="SinhViens" />
+            <End Role="DangKyMonHoc" EntitySet="DangKyMonHocs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLySinhVienModelStoreContainer" CdmEntityContainer="QuanLySinhVienEntities1">
+          <EntitySetMapping Name="ChuyenNganhs">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.ChuyenNganh">
+              <MappingFragment StoreEntitySet="ChuyenNganh">
+                <ScalarProperty Name="MaChuyenNganh" ColumnName="MaChuyenNganh" />
+                <ScalarProperty Name="TenChuyenNganh" ColumnName="TenChuyenNganh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DangKyMonHocs">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.DangKyMonHoc">
+              <MappingFragment StoreEntitySet="DangKyMonHoc">
+                <ScalarProperty Name="MaDK" ColumnName="MaDK" />
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+                <ScalarProperty Name="MaSV" ColumnName="MaSV" />
+                <ScalarProperty Name="ThoiGianDangKy" ColumnName="ThoiGianDangKy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonHocs">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.MonHoc">
+              <MappingFragment StoreEntitySet="MonHoc">
+                <ScalarProperty Name="MaMH" ColumnName="MaMH" />
+                <ScalarProperty Name="TenMH" ColumnName="TenMH" />
+                <ScalarProperty Name="MaChuyenNganh" ColumnName="MaChuyenNganh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SinhViens">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.SinhVien">
+              <MappingFragment StoreEntitySet="SinhVien">
+                <ScalarProperty Name="MaSV" ColumnName="MaSV" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
