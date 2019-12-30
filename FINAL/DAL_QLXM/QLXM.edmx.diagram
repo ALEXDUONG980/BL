@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="90d4923cd4984a4f8aa604778994f6d1" Name="Diagram1">
+        <EntityTypeShape EntityType="QLXMModel.BaoHanh" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.HopDong" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.KhachHang" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.NCC" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.NhanVien" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLXMModel.Xe" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="QLXMModel.FK_Xe_BaoHanh" ManuallyRouted="false" />
+        <AssociationConnector Association="QLXMModel.FK_HopDong_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="QLXMModel.FK_HopDong_NhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QLXMModel.FK_HopDong_Xe" ManuallyRouted="false" />
+        <AssociationConnector Association="QLXMModel.FK_Xe_NCC" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
